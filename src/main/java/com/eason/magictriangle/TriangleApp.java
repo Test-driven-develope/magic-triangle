@@ -14,7 +14,7 @@ public class TriangleApp {
             try {
                 List<String> sides = Arrays.asList(input.split(","));
                 final Triangle triangle = new Triangle(sides);
-                System.out.println(output + "可构成" + triangle.getName());
+                System.out.println(output + "可构成" + triangle.getType().typeName);
             } catch (ExceptionTriangle exceptionTriangle) {
                 System.out.println(output + "不能构成三角形");
             }

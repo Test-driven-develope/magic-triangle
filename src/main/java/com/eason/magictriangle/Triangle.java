@@ -1,11 +1,10 @@
 package com.eason.magictriangle;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Triangle {
-    private String name;
+    private TriangleType type;
     private int firstSideLength;
     private int secondSideLength;
     private int thirdSideLength;
@@ -15,19 +14,39 @@ public class Triangle {
         if (!isTriangle()) {
             throw new ExceptionTriangle();
         }
-        if (firstSideLength == secondSideLength && secondSideLength == thirdSideLength) {
-            this.name = "等边三角形";
-        } else if (firstSideLength == secondSideLength || secondSideLength == thirdSideLength || firstSideLength == thirdSideLength) {
-            this.name = "等腰三角形";
-        } else if ((firstSideLength * firstSideLength + secondSideLength * secondSideLength) == thirdSideLength * thirdSideLength) {
-            this.name = "直角三角形";
-        } else {
-            this.name = "常规三角形";
-        }
+        this.type = judgeType();
     }
     
-    public String getName() {
-        return this.name;
+    public TriangleType getType() {
+        return type;
+    }
+    
+    private TriangleType judgeType() {
+        if (isEquilateral()) {
+            return TriangleType.EQUILATERAL;
+        }
+        
+        if (isIsosceles()) {
+            return TriangleType.ISOSCELES;
+        }
+        
+        if (isRight()) {
+            return TriangleType.RIGHT;
+        }
+        
+        return TriangleType.NORMAL;
+    }
+    
+    private boolean isRight() {
+        return (firstSideLength * firstSideLength + secondSideLength * secondSideLength) == thirdSideLength * thirdSideLength;
+    }
+    
+    private boolean isIsosceles() {
+        return firstSideLength == secondSideLength || secondSideLength == thirdSideLength || firstSideLength == thirdSideLength;
+    }
+    
+    private boolean isEquilateral() {
+        return firstSideLength == secondSideLength && secondSideLength == thirdSideLength;
     }
     
     private boolean isTriangle() {
