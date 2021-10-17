@@ -1,6 +1,7 @@
 package com.eason.magictriangle;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Triangle {
@@ -14,7 +15,15 @@ public class Triangle {
         if (!isTriangle()) {
             throw new ExceptionTriangle();
         }
-        this.name = "常规三角形";
+        if (firstSideLength == secondSideLength && secondSideLength == thirdSideLength) {
+            this.name = "等边三角形";
+        } else if (firstSideLength == secondSideLength || secondSideLength == thirdSideLength || firstSideLength == thirdSideLength) {
+            this.name = "等腰三角形";
+        } else if ((firstSideLength * firstSideLength + secondSideLength * secondSideLength) == thirdSideLength * thirdSideLength) {
+            this.name = "直角三角形";
+        } else {
+            this.name = "常规三角形";
+        }
     }
     
     public String getName() {
@@ -27,7 +36,7 @@ public class Triangle {
     
     private void separateSides(List<String> sides) {
         try {
-            final List<Integer> sidesLength = sides.stream().map(Integer::valueOf).collect(Collectors.toList());
+            final List<Integer> sidesLength = sides.stream().map(Integer::valueOf).sorted().collect(Collectors.toList());
             if (sidesLength.size() != 3) {
                 throw new ExceptionTriangle();
             }

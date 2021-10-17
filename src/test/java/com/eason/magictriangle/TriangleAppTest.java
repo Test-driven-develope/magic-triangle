@@ -115,4 +115,40 @@ class TriangleAppTest {
                 txt.trim());
         });
     }
+    
+    @Test
+    void should_print_equilateral_triangle_when_2_2_2() throws Exception {
+        withTextFromSystemIn("2,2,2").execute(() -> {
+            final String txt = tapSystemOut(() -> TriangleApp.main(null));
+        
+            assertEquals("欢迎使用魔幻三角小程序！\n" +
+                    "请您需要判断的三角形的三条整数边长(如2,3,4):\n" +
+                    "您输入的三条边长为[2,2,2], 可构成等边三角形",
+                txt.trim());
+        });
+    }
+    
+    @Test
+    void should_print_isosceles_triangle_when_2_2_3() throws Exception {
+        withTextFromSystemIn("2,2,3").execute(() -> {
+            final String txt = tapSystemOut(() -> TriangleApp.main(null));
+            
+            assertEquals("欢迎使用魔幻三角小程序！\n" +
+                    "请您需要判断的三角形的三条整数边长(如2,3,4):\n" +
+                    "您输入的三条边长为[2,2,3], 可构成等腰三角形",
+                txt.trim());
+        });
+    }
+    
+    @Test
+    void should_print_right_triangle_when_3_4_5() throws Exception {
+        withTextFromSystemIn("3,4,5").execute(() -> {
+            final String txt = tapSystemOut(() -> TriangleApp.main(null));
+            
+            assertEquals("欢迎使用魔幻三角小程序！\n" +
+                    "请您需要判断的三角形的三条整数边长(如2,3,4):\n" +
+                    "您输入的三条边长为[3,4,5], 可构成直角三角形",
+                txt.trim());
+        });
+    }
 }
