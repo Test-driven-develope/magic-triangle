@@ -1,5 +1,8 @@
 package com.eason.magictriangle;
 
+import com.eason.magictriangle.domain.ExceptionTriangle;
+import com.eason.magictriangle.domain.Triangle;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
