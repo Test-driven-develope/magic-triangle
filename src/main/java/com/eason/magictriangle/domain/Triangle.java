@@ -14,48 +14,55 @@ public class Triangle {
         if (!isTriangle()) {
             throw new ExceptionTriangle();
         }
-        this.type = judgeType();
+        judgeType();
     }
     
     public TriangleType getType() {
         return type;
     }
     
-    private TriangleType judgeType() {
+    private void judgeType() {
         if (isEquilateral()) {
-            return TriangleType.EQUILATERAL;
+            this.type = TriangleType.EQUILATERAL;
         }
         
         if (isIsosceles()) {
-            return TriangleType.ISOSCELES;
+            this.type = TriangleType.ISOSCELES;
         }
         
         if (isRight()) {
-            return TriangleType.RIGHT;
+            this.type = TriangleType.RIGHT;
         }
-        
-        return TriangleType.NORMAL;
+    
+        this.type = TriangleType.NORMAL;
     }
     
     private boolean isRight() {
-        return (firstSideLength * firstSideLength + secondSideLength * secondSideLength) == thirdSideLength * thirdSideLength;
+        return (firstSideLength * firstSideLength + secondSideLength * secondSideLength)
+            == thirdSideLength * thirdSideLength;
     }
     
     private boolean isIsosceles() {
-        return firstSideLength == secondSideLength || secondSideLength == thirdSideLength || firstSideLength == thirdSideLength;
+        return firstSideLength == secondSideLength ||
+            secondSideLength == thirdSideLength ||
+            firstSideLength == thirdSideLength;
     }
     
     private boolean isEquilateral() {
-        return firstSideLength == secondSideLength && secondSideLength == thirdSideLength;
+        return firstSideLength == secondSideLength
+            && secondSideLength == thirdSideLength;
     }
     
     private boolean isTriangle() {
-        return (firstSideLength + secondSideLength > thirdSideLength) && (firstSideLength + thirdSideLength > secondSideLength) && (secondSideLength + thirdSideLength > firstSideLength);
+        return (firstSideLength + secondSideLength > thirdSideLength)
+            && (firstSideLength + thirdSideLength > secondSideLength)
+            && (secondSideLength + thirdSideLength > firstSideLength);
     }
     
     private void separateSides(List<String> sides) {
         try {
-            final List<Integer> sidesLength = sides.stream().map(Integer::valueOf).sorted().collect(Collectors.toList());
+            final List<Integer> sidesLength = sides.stream()
+                .map(Integer::valueOf).sorted().collect(Collectors.toList());
             if (sidesLength.size() != 3) {
                 throw new ExceptionTriangle();
             }

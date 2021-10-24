@@ -3,6 +3,7 @@ package com.eason.magictriangle.domain;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 
@@ -37,7 +38,7 @@ public class TriangleTest {
     
     @Test(expected = ExceptionTriangle.class)
     public void should_throw_exception_when_sides_are_not_int() {
-        new Triangle(Arrays.asList("2_3_4"));
+        new Triangle(Collections.singletonList("2_3_4"));
     }
     
     @Test(expected = ExceptionTriangle.class)
