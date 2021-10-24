@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Triangle {
-    private TriangleType type;
+    private final TriangleType type;
     private int firstSideLength;
     private int secondSideLength;
     private int thirdSideLength;
@@ -14,27 +14,27 @@ public class Triangle {
         if (!isTriangle()) {
             throw new ExceptionTriangle();
         }
-        judgeType();
+        type = judgeType();
     }
     
     public TriangleType getType() {
         return type;
     }
     
-    private void judgeType() {
+    private TriangleType judgeType() {
         if (isEquilateral()) {
-            this.type = TriangleType.EQUILATERAL;
+            return TriangleType.EQUILATERAL;
         }
         
         if (isIsosceles()) {
-            this.type = TriangleType.ISOSCELES;
+            return TriangleType.ISOSCELES;
         }
         
         if (isRight()) {
-            this.type = TriangleType.RIGHT;
+            return TriangleType.RIGHT;
         }
-    
-        this.type = TriangleType.NORMAL;
+        
+        return TriangleType.NORMAL;
     }
     
     private boolean isRight() {
