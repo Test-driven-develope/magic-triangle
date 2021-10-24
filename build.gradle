@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'org.example'
@@ -15,4 +16,13 @@ dependencies {
     implementation 'junit:junit:4.13.2'
     testImplementation "org.powermock:powermock-module-junit4:2.0.2"
     testImplementation "org.powermock:powermock-api-easymock:2.0.2"
+}
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.eason.magictriangle.TriangleApp'
+        )
+    }
 }
