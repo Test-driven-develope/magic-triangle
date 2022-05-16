@@ -9,6 +9,8 @@ public class Triangle {
     private final Triplet<Integer, Integer, Integer> sides;
 
     public Triangle(Triplet<Integer, Integer, Integer> sides) {
+        assert sides.getValue0() <= sides.getValue1();
+        assert sides.getValue1() <= sides.getValue2();
         this.sides = sides;
         setType();
     }

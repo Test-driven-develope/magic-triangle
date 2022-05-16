@@ -41,4 +41,14 @@ public class TriangleTest {
         Triangle triangle = new Triangle(new Triplet<>(3, 4, 5));
         assertEquals(triangle.getType(), TriangleType.RIGHT);
     }
+
+    @Test(expected = AssertionError.class)
+    public void should_be_right_triangle_when_three_sides_are_6_5_4() {
+        new Triangle(new Triplet<>(6, 5, 4));
+    }
+
+    @Test(expected = AssertionError.class)
+    public void should_be_right_triangle_when_three_sides_are_4_5_3() {
+        new Triangle(new Triplet<>(4, 5, 3));
+    }
 }
