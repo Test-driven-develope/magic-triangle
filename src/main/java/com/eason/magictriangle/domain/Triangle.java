@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.javatuples.Triplet;
+
 public class Triangle {
     private final TriangleType type;
-    public int firstSide;
-    public int secondSide;
-    public int thirdSide;
+    private Triplet<Integer, Integer, Integer> sides;
 
     public Triangle(List<String> sides) {
         separateSides(sides);
@@ -18,6 +18,10 @@ public class Triangle {
 
     public TriangleType getType() {
         return type;
+    }
+
+    public Triplet<Integer, Integer, Integer> getSides() {
+        return sides;
     }
 
     private TriangleType getTriangleType() {
@@ -32,9 +36,7 @@ public class Triangle {
             if (sidesLength.size() != 3) {
                 throw new ExceptionTriangle();
             }
-            this.firstSide = sidesLength.get(0);
-            this.secondSide = sidesLength.get(1);
-            this.thirdSide = sidesLength.get(2);
+            this.sides = new Triplet<>(sidesLength.get(0), sidesLength.get(1), sidesLength.get(2));
         } catch (NumberFormatException e) {
             throw new ExceptionTriangle();
         }
