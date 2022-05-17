@@ -1,13 +1,10 @@
 package com.eason.magictriangle;
 
+import java.util.Scanner;
+
 import com.eason.magictriangle.domain.ExceptionTriangle;
 import com.eason.magictriangle.domain.Triangle;
 import org.javatuples.Triplet;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class TriangleApp {
     private static final String MESSAGE = "欢迎使用魔幻三角小程序！\n" +
@@ -20,20 +17,12 @@ public class TriangleApp {
         try (Scanner scanner = new Scanner(System.in)) {
             String input = scanner.next();
             try {
-                final Triangle triangle = new Triangle(parseInput(input));
+                final Triplet<Integer, Integer, Integer> sides = ParseUtils.parseInput(input);
+                final Triangle triangle = new Triangle(sides);
                 System.out.printf(OUTPUT_NORMAL, input, triangle.getType().typeName);
             } catch (ExceptionTriangle | NumberFormatException | InputException exception) {
                 System.out.printf(OUTPUT_ERROR, input);
             }
         }
-    }
-
-    public static Triplet<Integer, Integer, Integer> parseInput(String input) throws InputException {
-        List<Integer> sides = Arrays.stream(input.split(","))
-                .map(Integer::valueOf).sorted().collect(Collectors.toList());
-        if (sides.size() != 3 || sides.stream().anyMatch(side -> side < 0)) {
-            throw new InputException();
-        }
-        return new Triplet<>(sides.get(0), sides.get(1), sides.get(2));
     }
 }

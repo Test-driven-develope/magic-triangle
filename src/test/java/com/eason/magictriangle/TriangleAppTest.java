@@ -1,5 +1,6 @@
 package com.eason.magictriangle;
 
+import static org.easymock.EasyMock.anyString;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
@@ -18,12 +19,12 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest( { TriangleApp.class })
+@PrepareForTest({TriangleApp.class, ParseUtils.class})
 public class TriangleAppTest {
-    
+
     @Rule
     public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
-    
+
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
@@ -35,59 +36,38 @@ public class TriangleAppTest {
 
     @Test
     public void should_print_not_be_a_triangle_given_1_2_3() throws Exception {
+        final String input = "1,2,3";
+        final Triplet<Integer, Integer, Integer> params = new Triplet<>(1, 2, 3);
+        mockStatic(ParseUtils.class);
+        expect(ParseUtils.parseInput(anyString())).andReturn(params);
+        replay(ParseUtils.class);
+
         Triangle triangle = createMock(Triangle.class);
-        expectNew(Triangle.class, new Triplet<>(1, 2, 3)).andThrow(new ExceptionTriangle());
+        expectNew(Triangle.class, params).andThrow(new ExceptionTriangle());
         replay(triangle, Triangle.class);
 
-        final String input = "1,2,3";
         systemInMock.provideLines(input);
         TriangleApp.main(null);
         assertEquals(String.format(OUTPUT, input, NOT_TRIANGLE),
-            systemOutRule.getLog().trim());
-    }
-
-    @Test
-    public void should_print_be_a_triangle() throws Exception {
-        Triangle triangle = createMock(Triangle.class);
-        expectNew(Triangle.class, new Triplet<>(2, 3, 4)).andReturn(triangle);
-        expect(triangle.getType()).andReturn(TriangleType.NORMAL);
-        replay(triangle, Triangle.class);
-
-        final String input = "2,3,4";
-        systemInMock.provideLines(input);
-        TriangleApp.main(null);
-        assertEquals(String.format(OUTPUT, input, NORMAL_TRIANGLE),
                 systemOutRule.getLog().trim());
     }
 
     @Test
-    public void should_return_triplet_when_input_1_2_3() throws InputException {
-        final Triplet<Integer, Integer, Integer> sides = TriangleApp.parseInput("1,2,3");
-        assertEquals(sides, new Triplet<>(1, 2, 3));
-    }
+    public void should_print_be_a_triangle() throws Exception {
+        final String input = "2,3,4";
+        final Triplet<Integer, Integer, Integer> params = new Triplet<>(2, 3, 4);
+        mockStatic(ParseUtils.class);
+        expect(ParseUtils.parseInput(anyString())).andReturn(params);
+        replay(ParseUtils.class);
 
-    @Test(expected = InputException.class)
-    public void should_throw_input_exception_when_input_1_2() throws InputException {
-        TriangleApp.parseInput("1,2");
-    }
+        Triangle triangle = createMock(Triangle.class);
+        expectNew(Triangle.class, params).andReturn(triangle);
+        expect(triangle.getType()).andReturn(TriangleType.NORMAL);
+        replay(triangle, Triangle.class);
 
-    @Test(expected = InputException.class)
-    public void should_throw_input_exception_when_input_1_2_4_5() throws InputException {
-        TriangleApp.parseInput("1,2,4,5");
-    }
-
-    @Test(expected = NumberFormatException.class)
-    public void should_throw_input_exception_when_input_s_2_3() throws InputException {
-        TriangleApp.parseInput("s,2,3");
-    }
-
-    @Test(expected = InputException.class)
-    public void should_throw_input_exception_when_input_sides_contains_negative() throws InputException {
-        TriangleApp.parseInput("2,3,-4");
-    }
-
-    @Test(expected = NumberFormatException.class)
-    public void should_throw_input_exception_when_input_sides_contains_float() throws InputException {
-        TriangleApp.parseInput("2,3,0.4");
+        systemInMock.provideLines(input);
+        TriangleApp.main(null);
+        assertEquals(String.format(OUTPUT, input, NORMAL_TRIANGLE),
+                systemOutRule.getLog().trim());
     }
 }
