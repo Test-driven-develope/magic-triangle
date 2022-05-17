@@ -14,7 +14,7 @@ dependencies {
     implementation 'com.github.stefanbirkner:system-rules:1.19.0'
     implementation 'com.github.stefanbirkner:system-lambda:1.1.0'
     implementation 'junit:junit:4.13.2'
-    implementation 'org.javatuples:javatuples:1.2'
+    compile 'org.javatuples:javatuples:1.2'
     testImplementation "org.powermock:powermock-module-junit4:2.0.2"
     testImplementation "org.powermock:powermock-api-easymock:2.0.2"
 }
@@ -25,5 +25,9 @@ jar {
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
                 'Main-Class': 'com.eason.magictriangle.TriangleApp'
         )
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory()? it:zipTree(it) }
     }
 }
