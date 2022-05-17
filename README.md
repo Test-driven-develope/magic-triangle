@@ -83,15 +83,25 @@
 
 ## 你该怎么做？
 
-### Step 1: Clone此仓库
+### Step 1: 安装对应的Java版本
+
+确保你本地环境的JVM版本为8~15.
+```bash
+java -version
+openjdk version "11.0.9" 2020-10-20
+OpenJDK Runtime Environment (build 11.0.9+11)
+OpenJDK 64-Bit Server VM (build 11.0.9+11, mixed mode)
+```
+
+### Step 2: Clone此仓库
 
 请将此项目Clone到你本地：`git clone https://github.com/Jinghua-Li/magic-triangle.git`
 
-### Step 2: 构建此项目
+### Step 3: 构建此项目
 
 请使用命令`./gradlew clean build`来下载相关依赖并构建此项目
 
-### step 3: 运行此程序
+### step 4: 运行此程序
 
 在项目根目录下运行命令`java -jar ./build/libs/magic-triangle-1.0-SNAPSHOT.jar`运行此程序, 有如下输出可以认为你本地已经搭建成功：
 
@@ -121,4 +131,3 @@
 * **main分支**： 此分支已经完整实现了此应用程序，如果您自己实现的时候有问题，可以适当参考。
 * **tdd分支**： 此分支用于让大家练习TDD的分支，包括基本的依赖和相关的脚手架代码。
 * **test分支**：此分支用于对测试不熟悉的小伙伴，想在有测试辅助的情况下练习TDD，新手可以依次去掉测试的注释逐步来实现。
-

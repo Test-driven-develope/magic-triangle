@@ -19,8 +19,10 @@ public enum TriangleType {
     RIGHT("直角三角形") {
         @Override
         public boolean isCurrentType(Triangle triangle) {
-            return (Math.pow(triangle.getSides().getValue0(), 2) + Math.pow(triangle.getSides().getValue1(), 2))
-                    == Math.pow(triangle.getSides().getValue2(), 2);
+            final int square = 2;
+            return (Math.pow(triangle.getSides().getValue0(), square) +
+                    Math.pow(triangle.getSides().getValue1(), square))
+                    == Math.pow(triangle.getSides().getValue2(), square);
         }
     }, NORMAL("常规三角形");
 
