@@ -83,9 +83,8 @@
 
 ## 你该怎么做？
 
-### Step 1: 安装对应的Java版本
-
-确保你本地环境的JVM版本为8~15.
+### Step 1: 安装对应的Java 11版本
+* 请点击这里[下载对应的JDK11](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
 ```bash
 java -version
 openjdk version "11.0.9" 2020-10-20
