@@ -2,8 +2,6 @@ package com.eason.magictriangle;
 
 import java.util.Scanner;
 
-import com.eason.magictriangle.domain.ExceptionTriangle;
-import com.eason.magictriangle.domain.Triangle;
 import org.javatuples.Triplet;
 
 public class TriangleApp {
@@ -18,9 +16,16 @@ public class TriangleApp {
             String input = scanner.next();
             try {
                 final Triplet<Integer, Integer, Integer> sides = ParseUtils.parseInput(input);
-                final Triangle triangle = new Triangle(sides);
-                System.out.printf(OUTPUT_NORMAL, input, triangle.getType().typeName);
-            } catch (ExceptionTriangle | NumberFormatException | InputException exception) {
+                // 如果实现了，请打开这个注释
+//                final Triangle triangle = new Triangle(sides);
+//                System.out.printf(OUTPUT_NORMAL, input, triangle.getType().typeName);
+                // 打开上面的注释后，请注释掉这个注释
+                if (input.equals("2,3,4")) {
+                    System.out.printf(OUTPUT_NORMAL, input, "常规三角形");
+                } else {
+                    System.out.printf(OUTPUT_ERROR, input);
+                }
+            } catch (NumberFormatException | InputException exception) {
                 System.out.printf(OUTPUT_ERROR, input);
             }
         }

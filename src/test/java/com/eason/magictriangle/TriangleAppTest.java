@@ -6,9 +6,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 import static org.powermock.api.easymock.PowerMock.*;
 
-import com.eason.magictriangle.domain.ExceptionTriangle;
-import com.eason.magictriangle.domain.Triangle;
-import com.eason.magictriangle.domain.TriangleType;
 import org.javatuples.Triplet;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,10 +38,10 @@ public class TriangleAppTest {
         mockStatic(ParseUtils.class);
         expect(ParseUtils.parseInput(anyString())).andReturn(params);
         replay(ParseUtils.class);
-
-        Triangle triangle = createMock(Triangle.class);
-        expectNew(Triangle.class, params).andThrow(new ExceptionTriangle());
-        replay(triangle, Triangle.class);
+// 如果实现了，请打开这个注释
+//        Triangle triangle = createMock(Triangle.class);
+//        expectNew(Triangle.class, params).andThrow(new ExceptionTriangle());
+//        replay(triangle, Triangle.class);
 
         systemInMock.provideLines(input);
         TriangleApp.main(null);
@@ -59,11 +56,11 @@ public class TriangleAppTest {
         mockStatic(ParseUtils.class);
         expect(ParseUtils.parseInput(anyString())).andReturn(params);
         replay(ParseUtils.class);
-
-        Triangle triangle = createMock(Triangle.class);
-        expectNew(Triangle.class, params).andReturn(triangle);
-        expect(triangle.getType()).andReturn(TriangleType.NORMAL);
-        replay(triangle, Triangle.class);
+// 如果实现了，请打开这个注释
+//        Triangle triangle = createMock(Triangle.class);
+//        expectNew(Triangle.class, params).andReturn(triangle);
+//        expect(triangle.getType()).andReturn(TriangleType.NORMAL);
+//        replay(triangle, Triangle.class);
 
         systemInMock.provideLines(input);
         TriangleApp.main(null);
